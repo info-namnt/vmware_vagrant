@@ -1,0 +1,18 @@
+Vagrant.configure("2") do |config|
+
+  config.vm.provider "vmware_desktop"
+  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.network "private_network", ip: "192.168.10.10"
+  config.vm.network "forwarded_port", guest: 22, host: 2022
+  config.vm.hostname = "vm-ci"
+
+  config.vm.synced_folder ".", "/vagrant_data", disabled: true
+
+  config.vm.provider :vmware_desktop do |v|
+    v.vmx["memsize"] = "3072"
+    v.vmx["numvcpus"] = "2"
+  end
+
+end
+
+# vagrant up
